@@ -4,6 +4,11 @@
 
 This is a Pokedex application built with React. It allows users to search and view details about different Pokemon.
 
+[View my project live](https://react-pokedex-xg91.onrender.com/)
+
+I used PokeAPI for backend
+[PokeAPI](https://pokeapi.co/)
+
 ## Features
 
 - Search for Pokemon by name (coming up!)
