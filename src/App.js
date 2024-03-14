@@ -3,11 +3,13 @@ import PokemonGif from "./components/pokemon-gif.js";
 import PokemonInfo from "./components/pokemon-info.js";
 import PokedexImage from "./pokedex.png"; // adjust the path as needed
 import "./App.css";
+import PokemonSearch from "./components/pokemon-search.js";
 
 const App = () => {
   const [pokemonId, setPokemonId] = useState(1);
   const [pokemonData, setPokemonData] = useState(null);
   const [speciesData, setspeciesData] = useState(null);
+  let [dataFromChild, setDataFromChild] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,13 +29,20 @@ const App = () => {
     fetchData();
   }, [pokemonId]);
 
+  const receiveDataFromChild = (data) => {
+    setDataFromChild(data);
+    setPokemonId(data);
+  };
+
   const handlePrev = () => {
     if (pokemonId > 1) {
+      setDataFromChild(null);
       setPokemonId(pokemonId - 1);
     }
   };
 
   const handleNext = () => {
+    setDataFromChild(null);
     setPokemonId(pokemonId + 1);
   };
 
@@ -45,6 +54,14 @@ const App = () => {
         <PokemonGif pokemonData={pokemonData} />
         <div className="pokemon-info-container">
           <PokemonInfo pokemonData={pokemonData} speciesData={speciesData} />
+        </div>
+        <div className="search-container">
+          {/* <PokemonSearch
+            sendDataToParent={receiveDataFromChild}
+            pokemonData={pokemonData}
+            speciesData={speciesData}
+          /> */}
+          {/* <p>Data from child: {dataFromChild}</p> */}
         </div>
         <div className="buttons">
           <button onClick={handlePrev} className="button">

@@ -5,7 +5,7 @@ const PokemonInfo = ({ pokemonData, speciesData }) => {
   return (
     <Fragment>
       {pokemonData && speciesData && (
-        <div className="pokemon-info-containe">
+        <div className="pokemon-info-container">
           <h1 className="title-background">{pokemonData.name}</h1>
           <p className="green-text">Height: {pokemonData.height} inch</p>
           <p className="green-text">Weight: {pokemonData.weight} lbs</p>
