@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+* {
+  font-family: 'Press Start 2P', cursive;
+}
+
 .App {
   text-align: center;
 }
@@ -25,7 +31,7 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: #61b3fb;
 }
 
 @keyframes App-logo-spin {
@@ -35,4 +41,64 @@
   to {
     transform: rotate(360deg);
   }
+}
+.pokedex-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 425px;
+  height: 637px;
+  flex: 1 0 200px; /* Adjust as needed */
+  max-width: 425px;
+}
+.pokemon-info-container {
+  flex: 1 0 200px; /* Adjust as needed */
+  max-width: 425px;
+}
+.center{
+  display: flex;
+  flex-wrap: wrap;
+}
+.yellow-dot {
+  position: absolute;
+  top: 2%;
+  left: 10%;
+  width: 66px; 
+  height: 66px;
+  background: linear-gradient(45deg, rgb(2, 26, 70), rgb(80, 158, 237));
+  border-radius: 50%;
+  animation: flash 1s infinite;
+}
+
+@keyframes flash {
+  0%, 20%, 40%, 60%, 100% {
+    opacity: 1;
+  }
+  10%, 30%, 80% {
+    opacity: 0;
+  }
+}
+/* Show the PokemonInfo component inside the pokedex-container by default */
+.pokedex-container .pokemon-info-container {
+  display: block;
+}
+/* Hide the PokemonInfo component inside the pokedex-container by default */
+.pokedex-container .pokemon-info-container {
+  display: none;
+}
+
+/* Show the PokemonInfo component inside the pokedex-container on screens smaller than 600px */
+@media screen and (max-width: 600px) {
+  .pokedex-container .pokemon-info-container {
+    display: block;
+  }
+}
+
+/* Hide the PokemonInfo component outside the pokedex-container on screens smaller than 600px */
+@media screen and (max-width: 600px) {
+  .pokemon-info-web-container > .pokemon-info-container {
+    display: none;
+  }
+
 }
