@@ -7,8 +7,20 @@ const PokemonInfo = ({ pokemonData, speciesData }) => {
       {pokemonData && speciesData && (
         <div className="pokemon-info-container">
           <h1 className="title-background">{pokemonData.name}</h1>
-          <p className="green-text">Height: {pokemonData.height * 10} cm</p>
-          <p className="green-text">Weight: {pokemonData.weight} lbs</p>
+          <p className="green-text">
+            Height: {Math.round(pokemonData.height * 10)}-
+            {Math.round(pokemonData.height * 10) -
+              Math.round(((pokemonData.height * 10) / 100) * 20)}{" "}
+            cm
+          </p>
+          <p className="green-text">
+            Weight: {Math.round(pokemonData.weight * 0.45359237)}-
+            {Math.round(
+              pokemonData.weight * 0.45359237 -
+                ((pokemonData.weight * 0.45359237) / 100) * 20
+            )}{" "}
+            kg
+          </p>
           {pokemonData.types.map((item, key) => (
             <p className="blue-text" key={key}>
               type {key + 1} : {item.type.name}
