@@ -128,3 +128,40 @@
     box-shadow: 0 0 0 0 rgba(255, 235, 59, 0);
   }
 }
+
+.buttons{
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    width: 65%;
+    transform: translate(-57%, 0);
+    display: flex;
+    gap: 20px;
+}
+
+.detect-button-container {
+    position: absolute;
+    bottom: 85%;
+    left: 50%;
+    width: 65%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+}
+
+.detect-button-container .button {
+    width: 100%;
+    padding: 4%;
+    border: 2px solid #000;
+    border-radius: 5px;
+    font-size: clamp(8px, 5vw, 1rem);
+    font-weight: 600;
+    color: white;
+    background-color: #444;
+    box-shadow: -3px 4px 0 #222, -5px 7px 0 #000;
+}
+
+.detect-button-container .button:active {
+    box-shadow: inset -4px 4px 0 #222;
+    font-size: 0.9rem;
+}

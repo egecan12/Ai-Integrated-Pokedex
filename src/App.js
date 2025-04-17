@@ -106,9 +106,11 @@ const App = () => {
           <PokemonInfo pokemonData={pokemonData} speciesData={speciesData} />
         </div>
         <div className="buttons">
-          <button onClick={() => setShowCamera(!showCamera)} className="button">
-            {showCamera ? 'Hide Camera' : 'Detect Pokemon'}
-          </button>
+          <div className="detect-button-container">
+            <button onClick={() => setShowCamera(!showCamera)} className="button">
+              {showCamera ? 'Hide Camera' : 'Detect Pokemon'}
+            </button>
+          </div>
           <button onClick={handlePrev} className="button">
             Prev
           </button>

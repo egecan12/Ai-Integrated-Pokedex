@@ -94,11 +94,19 @@ const PokemonCamera = ({ onPokemonDetected, pokemonData, speciesData }) => {
         const detectedPokemon = response.data.predictions[0].class;
         setSuccess(`A new Pokemon detected: ${detectedPokemon}!`);
         
-        // Wait for the Pokemon data to be fetched
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        // Fetch the new Pokemon's data
+        const pokemonResponse = await fetch(
+          `https://pokeapi.co/api/v2/pokemon/${detectedPokemon.toLowerCase()}`
+        );
+        const newPokemonData = await pokemonResponse.json();
         
-        // Speak the Pokemon information
-        speakPokemonInfo(detectedPokemon, pokemonData, speciesData);
+        const speciesResponse = await fetch(
+          `https://pokeapi.co/api/v2/pokemon-species/${newPokemonData.id}`
+        );
+        const newSpeciesData = await speciesResponse.json();
+        
+        // Speak the Pokemon information with the new data
+        speakPokemonInfo(detectedPokemon, newPokemonData, newSpeciesData);
         
         // Wait for 2 seconds before closing the camera and calling onPokemonDetected
         setTimeout(() => {
