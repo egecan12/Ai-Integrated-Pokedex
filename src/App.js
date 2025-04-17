@@ -2,48 +2,76 @@ import React, { useEffect, useState } from "react";
 import PokemonGif from "./components/pokemon-gif.js";
 import PokemonInfo from "./components/pokemon-info.js";
 import PokedexImage from "./pokedex.png"; // adjust the path as needed
+import PokemonCamera from "./components/PokemonCamera";
 import "./App.css";
-import PokemonSearch from "./components/pokemon-search.js";
 
 const App = () => {
   const [pokemonId, setPokemonId] = useState(1);
   const [pokemonData, setPokemonData] = useState(null);
   const [speciesData, setspeciesData] = useState(null);
-  let [dataFromChild, setDataFromChild] = useState("");
+  const [showCamera, setShowCamera] = useState(false);
+  const [pokemonName, setPokemonName] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const pokemonResponse = await fetch(
-        `https://pokeapi.co/api/v2/pokemon/${pokemonId}`
-      );
-      const pokemonData = await pokemonResponse.json();
-      setPokemonData(pokemonData);
+      try {
+        // If we have a Pokemon name, try to fetch by name first
+        if (pokemonName) {
+          const response = await fetch(
+            `https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`
+          );
+          if (response.ok) {
+            const data = await response.json();
+            setPokemonData(data);
+            setPokemonId(data.id);
+            
+            const speciesResponse = await fetch(
+              `https://pokeapi.co/api/v2/pokemon-species/${data.id}`
+            );
+            const speciesData = await speciesResponse.json();
+            setspeciesData(speciesData);
+            return;
+          }
+        }
 
-      const speciesResponse = await fetch(
-        `https://pokeapi.co/api/v2/pokemon-species/${pokemonId}`
-      );
-      const speciesData = await speciesResponse.json();
-      setspeciesData(speciesData);
+        // If no name or name fetch failed, use ID
+        const pokemonResponse = await fetch(
+          `https://pokeapi.co/api/v2/pokemon/${pokemonId}`
+        );
+        const pokemonData = await pokemonResponse.json();
+        setPokemonData(pokemonData);
+
+        const speciesResponse = await fetch(
+          `https://pokeapi.co/api/v2/pokemon-species/${pokemonId}`
+        );
+        const speciesData = await speciesResponse.json();
+        setspeciesData(speciesData);
+      } catch (error) {
+        console.error('Error fetching Pokemon data:', error);
+        // Reset to first Pokemon if there's an error
+        setPokemonId(1);
+        setPokemonName(null);
+      }
     };
 
     fetchData();
-  }, [pokemonId]);
+  }, [pokemonId, pokemonName]);
 
-  const receiveDataFromChild = (data) => {
-    setDataFromChild(data);
-    setPokemonId(data);
+  const handlePokemonDetected = (pokemonName) => {
+    setPokemonName(pokemonName);
+    setShowCamera(false);
   };
 
   const handlePrev = () => {
     if (pokemonId > 1) {
-      setDataFromChild(null);
       setPokemonId(pokemonId - 1);
+      setPokemonName(null);
     }
   };
 
   const handleNext = () => {
-    setDataFromChild(null);
     setPokemonId(pokemonId + 1);
+    setPokemonName(null);
   };
 
   return (
@@ -55,14 +83,6 @@ const App = () => {
         <div className="pokemon-info-container">
           <PokemonInfo pokemonData={pokemonData} speciesData={speciesData} />
         </div>
-        <div className="search-container">
-          {/* <PokemonSearch
-            sendDataToParent={receiveDataFromChild}
-            pokemonData={pokemonData}
-            speciesData={speciesData}
-          /> */}
-          {/* <p>Data from child: {dataFromChild}</p> */}
-        </div>
         <div className="buttons">
           <button onClick={handlePrev} className="button">
             Prev
@@ -70,8 +90,16 @@ const App = () => {
           <button onClick={handleNext} className="button">
             Next
           </button>
+          <button onClick={() => setShowCamera(!showCamera)} className="button">
+            {showCamera ? 'Hide Camera' : 'Show Camera'}
+          </button>
         </div>
       </div>
+      {showCamera && (
+        <div className="camera-section">
+          <PokemonCamera onPokemonDetected={handlePokemonDetected} />
+        </div>
+      )}
       <div className="pokemon-info-web-container">
         <div className="pokemon-info-container">
           <PokemonInfo pokemonData={pokemonData} speciesData={speciesData} />
@@ -82,3 +110,4 @@ const App = () => {
 };
 
 export default App;
+
