@@ -11,6 +11,8 @@ const App = () => {
   const [speciesData, setspeciesData] = useState(null);
   const [showCamera, setShowCamera] = useState(false);
   const [pokemonName, setPokemonName] = useState(null);
+  const [detectedPokemonData, setDetectedPokemonData] = useState(null);
+  const [detectedSpeciesData, setDetectedSpeciesData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,9 +59,29 @@ const App = () => {
     fetchData();
   }, [pokemonId, pokemonName]);
 
-  const handlePokemonDetected = (pokemonName) => {
-    setPokemonName(pokemonName);
-    setShowCamera(false);
+  const handlePokemonDetected = async (pokemonName) => {
+    try {
+      // Fetch the detected Pokemon's data
+      const response = await fetch(
+        `https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setDetectedPokemonData(data);
+        
+        // Fetch species data
+        const speciesResponse = await fetch(
+          `https://pokeapi.co/api/v2/pokemon-species/${data.id}`
+        );
+        const speciesData = await speciesResponse.json();
+        setDetectedSpeciesData(speciesData);
+        
+        setPokemonName(pokemonName);
+        setShowCamera(false);
+      }
+    } catch (error) {
+      console.error('Error fetching detected Pokemon data:', error);
+    }
   };
 
   const handlePrev = () => {
@@ -84,20 +106,24 @@ const App = () => {
           <PokemonInfo pokemonData={pokemonData} speciesData={speciesData} />
         </div>
         <div className="buttons">
+          <button onClick={() => setShowCamera(!showCamera)} className="button">
+            {showCamera ? 'Hide Camera' : 'Detect Pokemon'}
+          </button>
           <button onClick={handlePrev} className="button">
             Prev
           </button>
           <button onClick={handleNext} className="button">
             Next
           </button>
-          <button onClick={() => setShowCamera(!showCamera)} className="button">
-            {showCamera ? 'Hide Camera' : 'Show Camera'}
-          </button>
         </div>
       </div>
       {showCamera && (
         <div className="camera-section">
-          <PokemonCamera onPokemonDetected={handlePokemonDetected} />
+          <PokemonCamera 
+            onPokemonDetected={handlePokemonDetected} 
+            pokemonData={detectedPokemonData}
+            speciesData={detectedSpeciesData}
+          />
         </div>
       )}
       <div className="pokemon-info-web-container">

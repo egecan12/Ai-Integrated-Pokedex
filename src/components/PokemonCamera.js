@@ -3,13 +3,66 @@ import Webcam from 'react-webcam';
 import axios from 'axios';
 import './PokemonCamera.css';
 
-const PokemonCamera = ({ onPokemonDetected }) => {
+const PokemonCamera = ({ onPokemonDetected, pokemonData, speciesData }) => {
   const webcamRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [capturedImage, setCapturedImage] = useState(null);
   const [showPreview, setShowPreview] = useState(false);
+
+  const speakPokemonInfo = (pokemonName, pokemonData, speciesData) => {
+    // Create a new speech synthesis instance
+    const speech = new SpeechSynthesisUtterance();
+    
+    // Get Pokemon information
+    const type = pokemonData?.types?.[0]?.type?.name || 'unknown';
+    const height = pokemonData?.height ? (pokemonData.height / 10).toFixed(1) : 'unknown';
+    const weight = pokemonData?.weight ? (pokemonData.weight / 10).toFixed(1) : 'unknown';
+    
+    // Get flavor text
+    let flavorText = '';
+    if (speciesData?.flavor_text_entries) {
+      // Find English flavor text
+      const englishEntry = speciesData.flavor_text_entries.find(
+        entry => entry.language.name === 'en'
+      );
+      if (englishEntry) {
+        // Clean up the flavor text (remove newlines and extra spaces)
+        flavorText = englishEntry.flavor_text
+          .replace(/\n/g, ' ')
+          .replace(/\f/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim();
+      }
+    }
+    
+    // Set the text to be spoken
+    speech.text = `A new Pokemon detected! It's ${pokemonName}! 
+      This Pokemon is a ${type} type. 
+      It is ${height} meters tall and weighs ${weight} kilograms.
+      ${flavorText}`;
+    
+    // Set voice properties for a robotic effect
+    speech.rate = 0.9; // Slightly slower
+    speech.pitch = 0.8; // Lower pitch
+    speech.volume = 1;
+    
+    // Get available voices and find a robotic one if available
+    const voices = window.speechSynthesis.getVoices();
+    const roboticVoice = voices.find(voice => 
+      voice.name.includes('Microsoft') || 
+      voice.name.includes('Google') ||
+      voice.name.includes('Samantha')
+    );
+    
+    if (roboticVoice) {
+      speech.voice = roboticVoice;
+    }
+    
+    // Speak the text
+    window.speechSynthesis.speak(speech);
+  };
 
   const capture = async () => {
     const imageSrc = webcamRef.current.getScreenshot();
@@ -40,6 +93,14 @@ const PokemonCamera = ({ onPokemonDetected }) => {
       if (response.data && response.data.predictions && response.data.predictions.length > 0) {
         const detectedPokemon = response.data.predictions[0].class;
         setSuccess(`A new Pokemon detected: ${detectedPokemon}!`);
+        
+        // Wait for the Pokemon data to be fetched
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        // Speak the Pokemon information
+        speakPokemonInfo(detectedPokemon, pokemonData, speciesData);
+        
+        // Wait for 2 seconds before closing the camera and calling onPokemonDetected
         setTimeout(() => {
           onPokemonDetected(detectedPokemon);
           setShowPreview(false);
