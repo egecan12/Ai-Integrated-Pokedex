@@ -4,7 +4,9 @@ A modern Pokedex application that uses AI to detect and identify Pokemon in real
 
 ## 🎬 Demo
 
-![Demo GIF](demo1.gif){: width="50%" }
+<div align="center">
+  <img src="demo1.gif" alt="Demo GIF" width="320"/>
+</div>
 
 ## 🚀 Features
 
