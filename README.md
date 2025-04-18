@@ -36,11 +36,9 @@ This application is available as a Progressive Web App (PWA) and can be installe
 4. Select "Install app" or "Add to Home screen"
 5. The app will be installed as a native-like application
 
-## 🎥 Demo
+## 🎬 Demo
 
-<div align="center">
-  <img src="https://github.com/user-attachments/assets/322454cf-a7e6-43fa-84d6-747ec99b3029" alt="Demo GIF" width="320"/>
-</div>
+![Demo GIF](demo1.gif)
 
 ## 🛠️ Technologies Used
 
