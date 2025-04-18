@@ -31,6 +31,10 @@ Visit [AI-Integrated Pokedex](https://egecan12.github.io/Ai-Integrated-Pokedex/)
 
 ## 📱 Installation Guide
 
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/eee6191b-5ceb-4049-b54d-5781b6db8e10" alt="PWA Icon" width="120" height="120"/>
+</div>
+
 ### iOS Users
 1. Open Safari browser
 2. Visit [AI-Integrated Pokedex](https://egecan12.github.io/Ai-Integrated-Pokedex/)
