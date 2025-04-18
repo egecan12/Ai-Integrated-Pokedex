@@ -100,7 +100,17 @@
   .pokemon-info-web-container > .pokemon-info-container {
     display: none;
   }
+}
 
+/* Simple hide pokemon-info-container on mobile and tablet */
+@media screen and (max-width: 1024px) {
+  .pokemon-info-container {
+    display: none;
+  }
+  .pokemon-info-container p,
+  .pokemon-info-container h1 {
+    display: none;
+  }
 }
 
 .camera-section {
