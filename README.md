@@ -2,7 +2,9 @@
 
 A modern Pokedex application that uses AI to detect and identify Pokemon in real-time using your device's camera. Built with React and powered by Roboflow's object detection API.
 
-[![Live Demo](https://github.com/user-attachments/assets/322454cf-a7e6-43fa-84d6-747ec99b3029)](https://egecan12.github.io/Ai-Integrated-Pokedex/)
+## 🎬 Demo
+
+![Demo GIF](demo1.gif){: width="50%" }
 
 ## 🚀 Features
 
@@ -35,10 +37,6 @@ This application is available as a Progressive Web App (PWA) and can be installe
 3. Tap the three-dot menu
 4. Select "Install app" or "Add to Home screen"
 5. The app will be installed as a native-like application
-
-## 🎬 Demo
-
-![Demo GIF](demo1.gif)
 
 ## 🛠️ Technologies Used
 
