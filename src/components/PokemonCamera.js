@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Webcam from 'react-webcam';
 import axios from 'axios';
 import './PokemonCamera.css';
@@ -10,6 +10,13 @@ const PokemonCamera = ({ onPokemonDetected, pokemonData, speciesData }) => {
   const [success, setSuccess] = useState(null);
   const [capturedImage, setCapturedImage] = useState(null);
   const [showPreview, setShowPreview] = useState(false);
+  const [isIOS, setIsIOS] = useState(false);
+
+  useEffect(() => {
+    // Check if the device is iOS
+    const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    setIsIOS(isIOSDevice);
+  }, []);
 
   const speakPokemonInfo = (pokemonName, pokemonData, speciesData) => {
     // Create a new speech synthesis instance
@@ -23,12 +30,10 @@ const PokemonCamera = ({ onPokemonDetected, pokemonData, speciesData }) => {
     // Get flavor text
     let flavorText = '';
     if (speciesData?.flavor_text_entries) {
-      // Find English flavor text
       const englishEntry = speciesData.flavor_text_entries.find(
         entry => entry.language.name === 'en'
       );
       if (englishEntry) {
-        // Clean up the flavor text (remove newlines and extra spaces)
         flavorText = englishEntry.flavor_text
           .replace(/\n/g, ' ')
           .replace(/\f/g, ' ')
@@ -43,12 +48,12 @@ const PokemonCamera = ({ onPokemonDetected, pokemonData, speciesData }) => {
       It is ${height} meters tall and weighs ${weight} kilograms.
       ${flavorText}`;
     
-    // Set voice properties for a robotic effect
-    speech.rate = 0.9; // Slightly slower
-    speech.pitch = 0.8; // Lower pitch
+    // Set voice properties
+    speech.rate = 0.9;
+    speech.pitch = 0.8;
     speech.volume = 1;
     
-    // Get available voices and find a robotic one if available
+    // Get available voices
     const voices = window.speechSynthesis.getVoices();
     const roboticVoice = voices.find(voice => 
       voice.name.includes('Microsoft') || 
@@ -59,9 +64,19 @@ const PokemonCamera = ({ onPokemonDetected, pokemonData, speciesData }) => {
     if (roboticVoice) {
       speech.voice = roboticVoice;
     }
-    
-    // Speak the text
-    window.speechSynthesis.speak(speech);
+
+    // Handle iOS devices
+    if (isIOS) {
+      // Cancel any ongoing speech
+      window.speechSynthesis.cancel();
+      
+      // Add a small delay to ensure the speech synthesis is ready
+      setTimeout(() => {
+        window.speechSynthesis.speak(speech);
+      }, 100);
+    } else {
+      window.speechSynthesis.speak(speech);
+    }
   };
 
   const capture = async () => {
