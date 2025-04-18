@@ -2,8 +2,7 @@
 
 A modern Pokedex application that uses AI to detect and identify Pokemon in real-time using your device's camera. Built with React and powered by Roboflow's object detection API.
 
-![Demo](https://github.com/egecan12/Ai-Integrated-Pokedex/blob/master/iPhone-13-PRO-egecan12.github.io-rkia_q3avcmiic.webm)
-![Screenshot](https://github.com/user-attachments/assets/43a3f87b-337b-4d65-b0c0-5d788045b731)
+[![Live Demo](https://github.com/user-attachments/assets/322454cf-a7e6-43fa-84d6-747ec99b3029)](https://egecan12.github.io/Ai-Integrated-Pokedex/)
 
 ## 🚀 Features
 
@@ -13,23 +12,42 @@ A modern Pokedex application that uses AI to detect and identify Pokemon in real
 - Responsive design for all devices
 - Progressive Web App (PWA) support
 - Offline functionality
+- Cross-platform support (iOS & Android)
+
+## 📱 PWA Support
+
+This application is available as a Progressive Web App (PWA) and can be installed on both iOS and Android devices:
+
+### iOS Installation
+1. Open Safari browser
+2. Visit [https://egecan12.github.io/Ai-Integrated-Pokedex/](https://egecan12.github.io/Ai-Integrated-Pokedex/)
+3. Tap the Share button
+4. Select "Add to Home Screen"
+5. The app will be installed as a native-like application
+
+### Android Installation
+1. Open Chrome browser
+2. Visit [https://egecan12.github.io/Ai-Integrated-Pokedex/](https://egecan12.github.io/Ai-Integrated-Pokedex/)
+3. Tap the three-dot menu
+4. Select "Install app" or "Add to Home screen"
+5. The app will be installed as a native-like application
 
 ## 🛠️ Technologies Used
 
 ### Frontend
 <div align="center">
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/>
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/tailwindcss/tailwindcss-plain.svg" alt="tailwind" width="40" height="40"/>
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/>
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/>
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="react" width="40" height="40"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" alt="tailwind" width="40" height="40"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="html5" width="40" height="40"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="css3" width="40" height="40"/>
 </div>
 
 ### Backend & AI
 <div align="center">
   <img src="https://raw.githubusercontent.com/roboflow-ai/roboflow-js-browser/main/docs/roboflow-logo.svg" alt="roboflow" width="40" height="40"/>
   <img src="https://raw.githubusercontent.com/ultralytics/yolov5/master/docs/images/logo.png" alt="yolov8" width="40" height="40"/>
-  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="nodejs" width="40" height="40"/>
 </div>
 
 ## 📦 Dataset Information
