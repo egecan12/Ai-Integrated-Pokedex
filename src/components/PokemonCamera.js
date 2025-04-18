@@ -10,15 +10,11 @@ const PokemonCamera = ({ onPokemonDetected, pokemonData, speciesData }) => {
   const [success, setSuccess] = useState(null);
   const [capturedImage, setCapturedImage] = useState(null);
   const [showPreview, setShowPreview] = useState(false);
-  const [isIOS, setIsIOS] = useState(false);
-
-  useEffect(() => {
-    // Check if the device is iOS
-    const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    setIsIOS(isIOSDevice);
-  }, []);
 
   const speakPokemonInfo = (pokemonName, pokemonData, speciesData) => {
+    // Check if we're on iOS
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    
     // Create a new speech synthesis instance
     const speech = new SpeechSynthesisUtterance();
     
@@ -65,7 +61,7 @@ const PokemonCamera = ({ onPokemonDetected, pokemonData, speciesData }) => {
       speech.voice = roboticVoice;
     }
 
-    // Handle iOS devices
+    // Handle iOS-specific behavior
     if (isIOS) {
       // Cancel any ongoing speech
       window.speechSynthesis.cancel();
@@ -75,6 +71,7 @@ const PokemonCamera = ({ onPokemonDetected, pokemonData, speciesData }) => {
         window.speechSynthesis.speak(speech);
       }, 100);
     } else {
+      // For non-iOS devices, speak immediately
       window.speechSynthesis.speak(speech);
     }
   };
