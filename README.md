@@ -18,6 +18,10 @@ A modern Pokedex application that uses AI to detect and identify Pokemon in real
 
 This application is available as a Progressive Web App (PWA) and can be installed on both iOS and Android devices:
 
+<div align="center">
+  <img src="icon.png" alt="PWA Icon" width="120" height="120"/>
+</div>
+
 ### iOS Installation
 1. Open Safari browser
 2. Visit [https://egecan12.github.io/Ai-Integrated-Pokedex/](https://egecan12.github.io/Ai-Integrated-Pokedex/)
@@ -31,6 +35,12 @@ This application is available as a Progressive Web App (PWA) and can be installe
 3. Tap the three-dot menu
 4. Select "Install app" or "Add to Home screen"
 5. The app will be installed as a native-like application
+
+## 🎥 Demo
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/322454cf-a7e6-43fa-84d6-747ec99b3029" alt="Demo GIF" width="320"/>
+</div>
 
 ## 🛠️ Technologies Used
 
